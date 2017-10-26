@@ -39,11 +39,13 @@ app.use(methodOverride());
 
 app.use('/', index);
 app.use('/users', users);
-app.use('./login', login);
-app.use('./register', register);
-app.use('./logout', logout);
+app.use('/login', login);
+app.use('/register', register);
+app.use('/logout', logout);
 
 // catch 404 and forward to error handler
+//every page may have occured error, so in the entry of this project which is app.js in this case
+//you can deal with error now and if you don't know how to deal with it, you can pass it to the parameter "next"
 app.use(function (req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
