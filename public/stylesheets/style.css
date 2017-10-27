@@ -8,8 +8,6 @@ a {
   color: #00B7FF;
 }
 /* login page style */
-.title {
-}
 .login {
   width: 400px;
   height: 600px;
@@ -18,9 +16,20 @@ a {
   margin-top: 100px; 
 }
 /* home page */
-.nav-brand {
-  font-size: 1.9em;
+.navbar-brand {
+  font-size: 1.5em;
+  font-family: serif;
 }
 .nav-item{
   padding: 10px 10px;
+}
+.notify {
+  background-color: white;
+  font-size: 0.5rem;
+}
+#content {
+  width: 100%;
+  min-height: 30px;
+  margin: 10px 10px;
+  box-shadow: 0 0  10px grey;
 }
