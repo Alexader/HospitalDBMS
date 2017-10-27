@@ -1,0 +1,24 @@
+include layout
+
+block content
+  div.form-row
+    div.form-group.col-md-6
+      label.col-form-label.col-sm-2(for='inputEmail1') 邮箱
+      div.col-sm-10
+        input.form-control#inputEmail3(type="email", placeholder="Email")
+    div.form-group.col-md-6
+      label.col-form-label.col-sm-2(for='inputPassword2') 密码
+      div.col-sm-10
+        input.form-control#inputPassword3(type="password", placeholder="Password")
+  div.form-row
+    div.form-group.col-md-6
+      label.col-form-label.col-sm-2(for='inputName') 名字
+      div.col-sm-10
+        input.form-control#inputName3(type="name", placeholder="真实姓名")
+    div.form-group.col-md-6
+      label.col-form-label.col-sm-2(for='inputID') 身份证号
+      div.col-sm-10
+        input.form-control#inputID3(type="ID", placeholder="身份证")
+  div.form-group.row
+    div.col-sm-8
+      button.btn.btn-primary(type='submit') 注册
