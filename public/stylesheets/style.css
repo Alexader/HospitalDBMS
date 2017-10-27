@@ -17,3 +17,10 @@ a {
   margin: 0 auto;
   margin-top: 100px; 
 }
+/* home page */
+.nav-brand {
+  font-size: 1.9em;
+}
+.nav-item{
+  padding: 10px 10px;
+}
