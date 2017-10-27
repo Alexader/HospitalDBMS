@@ -1,7 +1,9 @@
 extends layout
 
 block content
-  form
+  form.login
+    h3.title
+      | 医务管理系统登录
     div.form-group.row
       label.col-form-label.col-sm-2(for='inputEmail3') Email
       div.col-sm-10
@@ -12,23 +14,27 @@ block content
         input.form-control#inputPassword3(type="password", placeholder="Password")
     fieldset.form-group
       div.row
-        legend.col-form-legend.col-sm-2 Radios
-        div.col-sm-10
+        div.col-sm-4
           div.form-check
             label.form-check-label
-              input.form-check-input#gridRadios1(type='radio', name='gridRadios', value='oprion1' checked) Option one is this and that&mdash;be sure to include why it's great
+              input.form-check-input#gridRadios1(type='radio', name='gridRadios', value='oprion1' checked)
+              | 患者
+        div.col-sm-4
           div.form-check
             label.form-check-label
-              input.form-check-input#gridRadios2(type='radio', name='gridRadios', value='oprion2' checked) Option one is this and that&mdash;be sure to include why it's great
-          div.form-check.disabled
+              input.form-check-input#gridRadios2(type='radio', name='gridRadios', value='oprion2' checked)
+              | 医生
+        div.col-sm-4
+          div.form-check
             label.form-check-label
-              input.form-check-inline#gridRadios3(type="radio", value='option3', disabled) Option three is disabled
+              input.form-check-input#gridRadios3(type='radio', name='gridRadios', value='oprion2' checked)
+              | 管理员
     div.form-group.row
-      div.col-sm-2 checkbox
-      div.col-sm-10
       div.form-check
         label.form-check-label
-          input.form-check-input(type='checkbox') Check me out
+          input.form-check-input(type='checkbox')
+          | 自动登录
+          a(href='#')   | 忘记密码
     div.form-group.row
-      div.col-sm-10
-        button.btn.btn-primary(type='submit') Sign in
+      div.col-sm-12
+        button.btn.btn-primary(type='submit') 登录系统
