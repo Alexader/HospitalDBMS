@@ -33,3 +33,11 @@ a {
   margin: 10px 10px;
   box-shadow: 0 0  10px grey;
 }
+/* register page style */
+.register {
+  width: 50%;
+  height: 100%;
+  background: #ffffff;
+  margin: 0 auto;
+  margin-top: 100px;
+}

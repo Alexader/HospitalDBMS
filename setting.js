@@ -1,5 +1,6 @@
 module.exports = {
-    cookieSecret: 'microblogbyvoid',
+    cookieSecret: 'hospital',
     db: 'mongodb',
     host: 'localhost',
+    port: '27017',
 };
