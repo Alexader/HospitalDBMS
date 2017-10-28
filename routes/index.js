@@ -2,10 +2,13 @@ var express = require('express');
 var router = express.Router();
 var crypto = require('crypto');//kernel module of node for encryption
 var User = require('../models/user.js');// model of user data
+var check = require('../middlewares/check')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('home', { title: 'Express' });
+  //check if user is logged in
+  check.checkLogin(req, res, next);
+  check.checkNotLogin(req, res, next);
 });
 router.get('/users', function(req, res, next){
   res.render('home', { title: 'Express' });
@@ -23,5 +26,12 @@ router.post('/search', function(req, res, next) {
 router.post('/login', function(req, res) {
   var user_phone = req.body.email;
   var password = req.body.password;
+})
+router.post('/register', function(req, res) {
+  var user_name = req.body.name;
+  var user_email = req.body.email;
+  var user_id_number = req.body.id;
+  var user_type = req.body.type;
+
 })
 module.exports = router;
