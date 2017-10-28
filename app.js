@@ -11,10 +11,6 @@ var MongoStore = require('connect-mongo');
 var settings = require('./setting');
 
 var index = require('./routes/index');
-var users = require('./routes/users')
-var login = require('./routes/login');
-var logout = require('./routes/logout');
-var register = require('./routes/register');
 
 var app = express();
 
@@ -30,18 +26,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride());
-// app.use(session({
-//   secret: settings.cookieSecret,
-//   store: new MongoStore({
-//     db: settings.db
-//   })
-// }));
 
+//let router to deal with it
 app.use('/', index);
-app.use('/users', users);
-app.use('/login', login);
-app.use('/register', register);
-app.use('/logout', logout);
 
 // catch 404 and forward to error handler
 //every page may have occured error, so in the entry of this project which is app.js in this case
