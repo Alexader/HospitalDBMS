@@ -8,13 +8,14 @@
   "dependencies": {
     "body-parser": "~1.18.2",
     "connect-flash": "^0.1.1",
-    "connect-mongo": ">= 0.1.7",
+    "connect-mongo": "^2.0.0",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "express": "~4.15.5",
     "express-session": "^1.15.6",
     "method-override": "^2.3.10",
     "mongodb": "^2.2.33",
+    "mongoose": "^4.12.4",
     "morgan": "~1.9.0",
     "serve-favicon": "~2.4.5"
   }
