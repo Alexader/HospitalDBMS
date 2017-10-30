@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');//parse post body
 
 var methodOverride = require('method-override');
 var session = require('express-session');
-const mongoose = require('mongoose');
+var mongoose = require('mongoose');
 var MongoStore = require('connect-mongo')(session);
 var flash = require('connect-flash');
 var settings = require('./setting');
@@ -31,25 +31,20 @@ app.use(methodOverride());
 app.use(flash());
 
 //for connecting database
-mongoose.connect('mongodb://localhost/test');
-var db = mongoose.connection();
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  // we're connected!
-});
-app.use(session( {
-  store: new MongoStore({ mongooseConnection: connection})
+var uri = 'mongodb://localhost/test';
+mongoose.createConnection(uri);
+
+app.use(session({
+  secret: settings.cookieSecret,
+  key: settings.db,//cookie name
+  cookie: {maxAge: 1000 * 60 * 60 * 24 * 30},//30 days
+  store: new MongoStore({
+    db: settings.db,
+    host: settings.host,
+    port: settings.port
+  })
 }));
-// {
-//   secret: settings.cookieSecret,
-//   key: settings.db,//cookie name
-//   cookie: {maxAge: 1000 * 60 * 60 * 24 * 30},//30 days
-//   store: new MongoStore({
-//     db: settings.db,
-//     host: settings.host,
-//     port: settings.port,
-//   })
-// }
+
 
 //let router to deal with it
 app.use('/', index);

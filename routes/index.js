@@ -32,6 +32,12 @@ router.post('/register', function(req, res) {
   var user_email = req.body.email;
   var user_id_number = req.body.id;
   var user_type = req.body.type;
+  var password = req.body.password;
+      re_password = req.body.re_password;
+  if(password!=re_password){
+    req.flash('error', "两次密码不一致");
+    return res.redirect('/home');
+  }
 
 })
 module.exports = router;
