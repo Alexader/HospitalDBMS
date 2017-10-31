@@ -1,6 +1,7 @@
 - var logo = 'Varoio'
 - var position = "主页"
 - var subposition = "当前通知"
+- var user = 'user';
 nav.navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top
   button.navbar-toggler(type='button', data-toggle='collapse', data-target="#navbarTogglerDemo02", aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation")
     span.navbar-toggler-icon
@@ -17,6 +18,9 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top
     form.form-inline.my-2.my-lg-0
       input.form-control.mr-sm-2(type="search", placeholder="Search", aria-label="Search")
       button.btn.btn-outline-success.my-2.my-sm-0(type='submit') 搜索
+    | 欢迎
+    form.form-inlie(action="#")
+      a.user(href='#') #{user}
 nav(aria-label="breadcrumb" role="navigation")
   ol.breadcrumb.notify
     li.breadcrumb-item.active(aria-current="page") #{ position }

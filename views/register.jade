@@ -2,7 +2,7 @@ include layout
 
 block content
   div.register
-    form(action="/login", method="post")
+    form(action="/register", method="post")
       div.form-row
         div.form-group.col-md-12
           label.col-form-label.col-sm-4(for='inputEmail1') 邮箱
@@ -15,7 +15,7 @@ block content
         div.form-group.col-md-12
           label.col-form-label.col-sm-4(for='inputPassword2') 确认密码
           div.col-sm-10
-            input.form-control#inputPassword4(type="password", name='re_password', placeholder="Password")
+            input.form-control#inputPassword4(type="password", name='password-repeat', placeholder="Password")
       div.form-row
         div.form-group.col-md-6
           label.col-form-label.col-sm-4(for='inputName') 名字

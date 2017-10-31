@@ -27,6 +27,10 @@ a {
   background-color: white;
   font-size: 0.5rem;
 }
+.user{
+  font-size: 25px;
+  padding: 0 10px 0 10px;
+}
 #content {
   width: 100%;
   min-height: 30px;

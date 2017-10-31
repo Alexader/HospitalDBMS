@@ -11,6 +11,7 @@ var mongoose = require('mongoose');
 var MongoStore = require('connect-mongo')(session);
 var flash = require('connect-flash');
 var settings = require('./setting');
+var dbInstance = require('./models/db');
 
 var index = require('./routes/index');
 
@@ -30,21 +31,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride());
 app.use(flash());
 
-//for connecting database
-var uri = 'mongodb://localhost/test';
-mongoose.createConnection(uri);
-
+//for connecting database to store session
 app.use(session({
   secret: settings.cookieSecret,
-  key: settings.db,//cookie name
+  name: settings.db,//cookie name
   cookie: {maxAge: 1000 * 60 * 60 * 24 * 30},//30 days
-  store: new MongoStore({
-    db: settings.db,
-    host: settings.host,
-    port: settings.port
-  })
 }));
 
+app.use(function (req, res, next) {
+  res.locals.errors = req.flash('error');
+  res.locals.infos = req.flash('info');
+  res.locals.success = req.flash('success');
+  next();
+});
 
 //let router to deal with it
 app.use('/', index);
