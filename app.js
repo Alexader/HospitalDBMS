@@ -11,8 +11,6 @@ var mongoose = require('mongoose');
 var MongoStore = require('connect-mongo')(session);
 var flash = require('connect-flash');
 var settings = require('./setting');
-var dbInstance = require('./models/db');
-
 var index = require('./routes/index');
 
 var app = express();

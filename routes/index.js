@@ -4,18 +4,19 @@ var crypto = require('crypto');//kernel module of node for encryption
 var session = require('express-session');
 var flash = require('connect-flash');
 var User = require('../models/user');
-var dbInstance = require('./models/db');
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   //check if user is logged in
   // check.checkLogin(req, res, next);
   // check.checkNotLogin(req, res, next);
+  return res.redirect('/register');
 });
 router.get('/users', function(req, res, next){
   res.render('home', { 
     title: 'Express', 
-    user:  dbInstance.users.find({'name': 'tyx'}).name,
+    user:  'tyx',
     postion: 'user'
     //here to go
   });
@@ -40,7 +41,7 @@ router.post('/register', function (req, res) {
       password_re = req.body['password-repeat'];
   //检验用户两次输入的密码是否一致
   if (password_re != password) {
-    // req.flash('error', '两次输入的密码不一致!');
+    req.flash('error', '两次输入的密码不一致!');
     return res.redirect('/register');//返回注册页
   }
   //生成密码的 md5 值
@@ -49,22 +50,23 @@ router.post('/register', function (req, res) {
   var newUser = new User({
       name: name,
       password: password,
-      email: req.body.email
+      email: req.body.email,
+      type: req.body.type,
   });
   //检查用户名是否已经存在 
   User.get(newUser.name, function (err, user) {
     if (err) {
-      // req.flash('error', err);
-      return res.redirect('/');
+      req.flash('error', err);
+      return res.redirect('/register');
     }
     if (user) {
-      // req.flash('error', '用户已存在!');
-      return res.redirect('/register');//返回注册页
+      req.flash('error', '用户已存在!');
+      return res.redirect('/login');//返回注册页
     }
     //如果不存在则新增用户
     newUser.save(function (err, user) {
       if (err) {
-        // req.flash('error', err);
+        req.flash('error', err);
         return res.redirect('/register');//注册失败返回主册页
       }
       req.session.user = user;//用户信息存入 session
