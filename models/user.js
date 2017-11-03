@@ -29,28 +29,28 @@ User.prototype.save = function(callback) {
       password: this.password,
       email: this.email,
       id: this.id,
+      type: this.type,
   };
   //打开数据库
   MongoClient.connect(url, options, function(err, db) {
     assert.equal(err, null);
     //insert info of user
-    db.collection('users').find({name: user.name});
-    insertData(db, user, function() {
-      db.close();
-    })
+    var user =  db.collection('users').find({name: user.name}).explain();
+    if(user===null){
+      insertData(db, user, function() {
+        callback();
+        db.close();
+      });
+    } else {
+      console.log('user already exist');
+    }
   })
 };
 //helper function for get user
 var getInfo = function(db, name, callback) {
-  var cursor = db.collection('users').find({name: name});
-  cursor.each(function(err, user) {
-    assert.equal(err, null);
-    if (user != null) {
-      callback(user);
-   } else {
-      return;//not using callback
-   }
-  });
+  var user = db.collection('users').find({name: name}).explain();
+  //if there is no user it will return null
+  callback(user);
 }
 //读取用户信息
 User.get = function(name, callback) {

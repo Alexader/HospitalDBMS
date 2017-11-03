@@ -46,6 +46,7 @@ router.route('/register')
     var password = req.body.password;
     var password_re = req.body['password-repeat'];
     if(password!=password_re) {
+      console.log("password not the same")
       res.redirect('/register');
     }
     var user = {
@@ -56,7 +57,10 @@ router.route('/register')
       email: req.body.email,
     }
     var newUser = new User(user);
-    newUser.save();
+    newUser.save(function() {
+      console.log('dengluchenggong');
+    });
+    console.log('zhucechengggong')
     res.redirect('/user');
   });
 module.exports = router;
