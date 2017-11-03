@@ -27,12 +27,14 @@ User.prototype.save = function(callback) {
   var user = {
       name: this.name,
       password: this.password,
-      email: this.email
+      email: this.email,
+      id: this.id,
   };
   //打开数据库
   MongoClient.connect(url, options, function(err, db) {
     assert.equal(err, null);
     //insert info of user
+    db.collection('users').find({name: user.name});
     insertData(db, user, function() {
       db.close();
     })

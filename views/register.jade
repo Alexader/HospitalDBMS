@@ -1,38 +1,16 @@
 include layout
 
 block content
-  div.register
-    form(action="/register", method="post")
-      div.form-row
-        div.form-group.col-md-12
-          label.col-form-label.col-sm-4(for='inputEmail1') 邮箱
-          div.col-sm-10
-            input.form-control#inputEmail3(type="email", name='email', placeholder="Email")
-        div.form-group.col-md-12
-          label.col-form-label.col-sm-4(for='inputPassword2') 密码
-          div.col-sm-10
-            input.form-control#inputPassword3(type="password",name='password', placeholder="Password")
-        div.form-group.col-md-12
-          label.col-form-label.col-sm-4(for='inputPassword2') 确认密码
-          div.col-sm-10
-            input.form-control#inputPassword4(type="password", name='password-repeat', placeholder="Password")
-      div.form-row
-        div.form-group.col-md-6
-          label.col-form-label.col-sm-4(for='inputName') 名字
-          div.col-sm-10
-            input.form-control#inputName3(type="name", name='name', placeholder="真实姓名必填")
-        div.form-group.col-md-6
-          label.col-form-label.col-sm-4(for='inputID') 身份证号
-          div.col-sm-10
-            input.form-control#inputID3(type="ID", name='id', placeholder="身份证必填")
-        div.form-group.col-md-4
-          select.custom-select(name='type')
-            option.selected 请选择
-            option(value="1") 医生
-            option(value="2") 患者
-            option(value="3") 管理员
-      div.form-group.row
-        div.col-sm-4
-          button.btn.btn-primary(type='submit') 注册
-        div.col-sm-2.offset-sm-2
-            input.btn.btn-link(value='>>去登陆', onclick="window.location.href='/login'")
+  form#formAddBlob(name="addblob",method="post",action="/register")
+    p name:
+      input(type="text", placeholder="name", name="name")
+    p email:
+      input(type="text", placeholder="name", name="email")
+    p PassWord:
+      input#inputBadge(type="number", placeholder="password", name="password")
+    p repeat:
+      input(type="text", placeholder="repeat", name="password-repeat")
+    p id:
+      input(type="text", placeholder="id", name="id")
+    p
+      button#btnSubmit(type="submit") submit
