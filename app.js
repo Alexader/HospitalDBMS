@@ -34,6 +34,8 @@ app.use(session({
   secret: settings.cookieSecret,
   name: settings.db,//cookie name
   cookie: {maxAge: 1000 * 60 * 60 * 24 * 30},//30 days
+  resave: true,
+  saveUninitialized: true
 }));
 
 app.use(function (req, res, next) {

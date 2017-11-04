@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
   // check.checkNotLogin(req, res, next);
   return res.redirect('/register');
 });
-router.get('/users', function(req, res, next){
+router.get('/user', function(req, res, next){
   res.render('home', { 
     title: 'Express', 
     user:  'tyx',
@@ -46,7 +46,7 @@ router.route('/register')
     var password = req.body.password;
     var password_re = req.body['password-repeat'];
     if(password!=password_re) {
-      console.log("password not the same")
+      console.log("password not the same");
       res.redirect('/register');
     }
     var user = {
