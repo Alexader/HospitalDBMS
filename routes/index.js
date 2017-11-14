@@ -15,7 +15,6 @@ router.get('/', function(req, res, next) {
 });
 router.get('/user', function(req, res, next){
   res.render('home', { 
-    title: 'Express', 
     user:  'tyx',
     postion: 'user'
     //here to go
@@ -36,7 +35,6 @@ router.post('/login', function(req, res) {
 router.route('/register')
   .get(function(req, res, next) {
     res.render('register', { 
-      title: 'Express',
       message: res.locals.message,
     });
   })
@@ -52,15 +50,14 @@ router.route('/register')
     var user = {
       name: name,
       password: password,
-      password_re: password_re,
       id: req.body.id,
       email: req.body.email,
     }
     var newUser = new User(user);
-    newUser.save(function() {
-      console.log('dengluchenggong');
+    newUser.save(function(err, User) {
+      if(err) console.error(err);
+      console.log('登陆成功');
     });
-    console.log('zhucechengggong')
     res.redirect('/user');
   });
 module.exports = router;
