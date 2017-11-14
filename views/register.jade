@@ -24,6 +24,23 @@ block content
         label.col-form-label.col-sm-4(for='inputID') 身份证号
         div.col-sm-10
           input.form-control#inputID3(type="ID", placeholder="身份证必填", name="id")
+    fieldset.form-group.row
+      div.row
+        div.col-sm-4
+          div.form-check
+            label.form-check-label
+              input.form-check-input#gridRadios1(type='radio', name='gridRadios', value='patient' checked)
+              | 患者
+        div.col-sm-4
+          div.form-check
+            label.form-check-label
+              input.form-check-input#gridRadios2(type='radio', name='gridRadios', value='doctor' checked)
+              | 医生
+        div.col-sm-4
+          div.form-check
+            label.form-check-label
+              input.form-check-input#gridRadios3(type='radio', name='gridRadios', value='admin' checked)
+              | 管理员
     div.form-group.row
       div.col-sm-4
         button.btn.btn-primary(type='submit') 注册

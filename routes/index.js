@@ -3,7 +3,9 @@ var router = express.Router();
 var crypto = require('crypto');//kernel module of node for encryption
 var session = require('express-session');
 var flash = require('connect-flash');
-var User = require('../models/user');
+var Patient = require('../models/Patient');
+var Doctor = require('../models/Doctor');
+var Admin = require('../models/Admin');
 
 
 /* GET home page. */
@@ -20,17 +22,40 @@ router.get('/user', function(req, res, next){
     //here to go
   });
 });
-router.get('/login', function(req, res, next) {
-  res.render('login', { title: 'Express' });
-});
+
 router.post('/search', function(req, res, next) {
   res.render('searchPage', { title: 'Express' });
 })
 
-router.post('/login', function(req, res) {
-  var user_phone = req.body.email;
-  var password = req.body.password;
-})
+router.route('/login')
+  .get(function(req, res, next) {
+    res.render('login', { title: 'Express' })
+  })
+
+  .post(function(req, res, next) {
+    var email = req.body.email;
+    var option = req.body.gridRadios;
+    var UserType;
+    switch(option) {
+      case "patient":
+        UserType = Patient;
+      case "doctor" :
+        UserType = Doctor;
+      case "admin" :
+        UserType = Admin;
+    }
+    UserType.find({email: email}, function(err, user) {
+      if(err) {
+        console.log("用户不存在，请重新登录");
+        redirect("/login");
+      } else if(user.password!=req.body.password) {
+        console.log("密码输入错误");
+      } else {
+        redirect("/user");
+      }
+    })
+
+  })
 
 router.route('/register')
   .get(function(req, res, next) {
@@ -47,17 +72,72 @@ router.route('/register')
       console.log("password not the same");
       res.redirect('/register');
     }
-    var user = {
+    var patient = {
       name: name,
       password: password,
       id: req.body.id,
       email: req.body.email,
-    }
-    var newUser = new User(user);
-    newUser.save(function(err, User) {
+    };
+    var newPatient = new Patient(patient);
+    newPatient.save(function(err, User) {
       if(err) console.error(err);
       console.log('登陆成功');
+      res.redirect('/user');
     });
-    res.redirect('/user');
+    
+    //check what user type
+    // var option = req.body.gridRadios;
+    // switch(option) {
+    //   case "patient":{
+    //     var user = {
+    //       name: name,
+    //       password: password,
+    //       id: req.body.id,
+    //       email: req.body.email,
+    //     };
+    //     var newPatient = new Patient(user);
+    //     newPatient.save(function(err, User) {
+    //       if(err) return console.error(err);
+    //       console.log('登陆成功');
+    //     });
+    //     res.redirect('/user');
+    //     break;
+    //   }
+    //   case "doctor" : {
+    //     var doctor = {
+    //       name: req.body.name,
+    //       id: req.body.id,
+    //       email: req.body.email,
+    //       password: req.body.password,
+    //     }
+    //     var newDoctor = new Doctor(doctor);
+    //     newDoctor.save(function(err, doctor) {
+    //       if(err) console.error(err);
+    //       else {
+    //         console.log("登录成功");
+    //         res.redirect('/user');
+    //       }
+    //     });
+    //     break;
+    //   }
+    //   case "admin": {
+    //     var admin = {
+    //       name: req.body.name,
+    //       id: req.body.id,
+    //       email: req.body.email,
+    //       password: req.body.password,
+    //     }
+    //     var newAdmin = new Admin(admin);
+    //     newAdmin.save(function(err, admin) {
+    //       if(err) console.error(err);
+    //       else {
+    //         console.log("登录成功");
+    //         res.redirect('/user');
+    //       }
+    //     });
+    //     break;
+    //   }
+    // }
+
   });
 module.exports = router;
