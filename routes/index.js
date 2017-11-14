@@ -72,72 +72,61 @@ router.route('/register')
       console.log("password not the same");
       res.redirect('/register');
     }
-    var patient = {
-      name: name,
-      password: password,
-      id: req.body.id,
-      email: req.body.email,
-    };
-    var newPatient = new Patient(patient);
-    newPatient.save(function(err, User) {
-      if(err) console.error(err);
-      console.log('登陆成功');
-      res.redirect('/user');
-    });
     
-    //check what user type
-    // var option = req.body.gridRadios;
-    // switch(option) {
-    //   case "patient":{
-    //     var user = {
-    //       name: name,
-    //       password: password,
-    //       id: req.body.id,
-    //       email: req.body.email,
-    //     };
-    //     var newPatient = new Patient(user);
-    //     newPatient.save(function(err, User) {
-    //       if(err) return console.error(err);
-    //       console.log('登陆成功');
-    //     });
-    //     res.redirect('/user');
-    //     break;
-    //   }
-    //   case "doctor" : {
-    //     var doctor = {
-    //       name: req.body.name,
-    //       id: req.body.id,
-    //       email: req.body.email,
-    //       password: req.body.password,
-    //     }
-    //     var newDoctor = new Doctor(doctor);
-    //     newDoctor.save(function(err, doctor) {
-    //       if(err) console.error(err);
-    //       else {
-    //         console.log("登录成功");
-    //         res.redirect('/user');
-    //       }
-    //     });
-    //     break;
-    //   }
-    //   case "admin": {
-    //     var admin = {
-    //       name: req.body.name,
-    //       id: req.body.id,
-    //       email: req.body.email,
-    //       password: req.body.password,
-    //     }
-    //     var newAdmin = new Admin(admin);
-    //     newAdmin.save(function(err, admin) {
-    //       if(err) console.error(err);
-    //       else {
-    //         console.log("登录成功");
-    //         res.redirect('/user');
-    //       }
-    //     });
-    //     break;
-    //   }
-    // }
+    // check what user type
+    var option = req.body.gridRadios;
+    switch(option) {
+      case "patient":
+        var user = {
+          name: name,
+          password: password,
+          id: req.body.id,
+          email: req.body.email,
+        };
+        var newPatient = new Patient(user);
+        newPatient.save(function(err, User) {
+          if(err) return console.error(err);
+          else{
+            console.log('登陆成功');
+            res.redirect('/user');
+          }
+        });
+        break;
+
+      case "doctor" : 
+        var doctor = {
+          name: req.body.name,
+          id: req.body.id,
+          email: req.body.email,
+          password: req.body.password,
+        }
+        var newDoctor = new Doctor(doctor);
+        newDoctor.save(function(err, doctor) {
+          if(err) console.error(err);
+          else {
+            console.log("登录成功");
+            res.redirect('/user');
+          }
+        });
+        break;
+
+      case "admin": 
+        var admin = {
+          name: req.body.name,
+          id: req.body.id,
+          email: req.body.email,
+          password: req.body.password,
+        }
+        var newAdmin = new Admin(admin);
+        newAdmin.save(function(err, admin) {
+          if(err) console.error(err);
+          else {
+            console.log("登录成功");
+            res.redirect('/user');
+          }
+        });
+        break;
+    }
 
   });
 module.exports = router;
