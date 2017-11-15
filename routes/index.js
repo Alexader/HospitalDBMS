@@ -18,7 +18,8 @@ router.get('/', function(req, res, next) {
 router.get('/user', function(req, res, next){
   res.render('home', { 
     user:  'tyx',
-    postion: 'user'
+    postion: 'home',
+    subposition: 'user'
     //here to go
   });
 });
@@ -39,19 +40,28 @@ router.route('/login')
     switch(option) {
       case "patient":
         UserType = Patient;
+        break;
       case "doctor" :
         UserType = Doctor;
+        break;
       case "admin" :
         UserType = Admin;
     }
-    UserType.find({email: email}, function(err, user) {
+    UserType.findOne({email: email}, function(err, user) {
       if(err) {
         console.log("用户不存在，请重新登录");
         redirect("/login");
       } else if(user.password!=req.body.password) {
         console.log("密码输入错误");
+        res.redirect("/login");
       } else {
-        redirect("/user");
+        console.log("登录成功");
+        res.location("/user")
+        res.render('home', {
+          user: user.name,
+          postion: 'home',
+          subPosition: 'user'
+        })
       }
     })
 

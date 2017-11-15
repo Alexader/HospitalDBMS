@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  form.login
+  form.login(method="post", action="/login")
     h3.title
       | 医务管理系统登录
     div.form-group.row
