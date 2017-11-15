@@ -29,19 +29,37 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride());
 app.use(flash());
 
-//for connecting database to store session
+/*for connecting database to store session
+//and create a connection for session*/
+mongoose.createConnection("mongodb://localhost:27017/test");
 app.use(session({
   secret: settings.cookieSecret,
   name: settings.db,//cookie name
   cookie: {maxAge: 1000 * 60 * 60 * 24 * 30},//30 days
   resave: true,
-  saveUninitialized: true
+  saveUninitialized: true,
+  store: new MongoStore(
+    { mongooseConnection: mongoose.connection },
+  )
 }));
 
 app.use(function (req, res, next) {
   res.locals.message = req.flash('message');
   next();
 });
+
+//dont't use app.use("/", .....) because it will redirect to user page every iteration
+app.all('/', function(req, res, next) {
+  //request server in a normal way without remember me
+  if(!req.session.user) next();
+  else if(req.session.autoLogin === true){
+      res.render("home", {
+        user: req.session.user,
+        position: "home",
+        subposition: "user",
+      });
+  }
+})
 
 //let router to deal with it
 app.use('/', index);

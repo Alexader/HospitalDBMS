@@ -7,51 +7,51 @@ var Patient = require('../models/Patient');
 var Doctor = require('../models/Doctor');
 var Admin = require('../models/Admin');
 
+//check if user is logged in
+
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  //check if user is logged in
-  // check.checkLogin(req, res, next);
-  // check.checkNotLogin(req, res, next);
+router.get('/', function (req, res, next) {
+  // checkLogin(req, res, next);
   return res.redirect('/register');
 });
-router.get('/user', function(req, res, next){
-  res.render('home', { 
-    user:  'tyx',
+router.get('/user', function (req, res, next) {
+  res.render('home', {
+    user: 'tyx',
     postion: 'home',
     subposition: 'user'
     //here to go
   });
 });
 
-router.post('/search', function(req, res, next) {
+router.post('/search', function (req, res, next) {
   res.render('searchPage', { title: 'Express' });
 })
 
 router.route('/login')
-  .get(function(req, res, next) {
+  .get(function (req, res, next) {
     res.render('login', { title: 'Express' })
   })
 
-  .post(function(req, res, next) {
+  .post(function (req, res, next) {
     var email = req.body.email;
     var option = req.body.gridRadios;
     var UserType;
-    switch(option) {
+    switch (option) {
       case "patient":
         UserType = Patient;
         break;
-      case "doctor" :
+      case "doctor":
         UserType = Doctor;
         break;
-      case "admin" :
+      case "admin":
         UserType = Admin;
     }
-    UserType.findOne({email: email}, function(err, user) {
-      if(err) {
+    UserType.findOne({ email: email }, function (err, user) {
+      if (err) {
         console.log("用户不存在，请重新登录");
         redirect("/login");
-      } else if(user.password!=req.body.password) {
+      } else if (user.password != req.body.password) {
         console.log("密码输入错误");
         res.redirect("/login");
       } else {
@@ -68,75 +68,52 @@ router.route('/login')
   })
 
 router.route('/register')
-  .get(function(req, res, next) {
-    res.render('register', { 
+  .get(function (req, res, next) {
+    res.render('register', {
       message: res.locals.message,
     });
   })
 
-  .post(function(req, res, next) {
+  .post(function (req, res, next) {
     var name = req.body.name;
     var password = req.body.password;
     var password_re = req.body['password-repeat'];
-    if(password!=password_re) {
+    if (password != password_re) {
       console.log("password not the same");
       res.redirect('/register');
     }
-    
+
     // check what user type
     var option = req.body.gridRadios;
-    switch(option) {
+    var UserType;
+    switch (option) {
       case "patient":
-        var user = {
-          name: name,
-          password: password,
-          id: req.body.id,
-          email: req.body.email,
-        };
-        var newPatient = new Patient(user);
-        newPatient.save(function(err, User) {
-          if(err) return console.error(err);
-          else{
-            console.log('登陆成功');
-            res.redirect('/user');
-          }
-        });
+        UserType = Patient;
         break;
-
-      case "doctor" : 
-        var doctor = {
-          name: req.body.name,
-          id: req.body.id,
-          email: req.body.email,
-          password: req.body.password,
-        }
-        var newDoctor = new Doctor(doctor);
-        newDoctor.save(function(err, doctor) {
-          if(err) console.error(err);
-          else {
-            console.log("登录成功");
-            res.redirect('/user');
-          }
-        });
+      case "doctor":
+        UserType = Doctor;
         break;
-
-      case "admin": 
-        var admin = {
-          name: req.body.name,
-          id: req.body.id,
-          email: req.body.email,
-          password: req.body.password,
-        }
-        var newAdmin = new Admin(admin);
-        newAdmin.save(function(err, admin) {
-          if(err) console.error(err);
-          else {
-            console.log("登录成功");
-            res.redirect('/user');
-          }
-        });
-        break;
+      case "admin":
+        UserType = Admin;
     }
+    var user = {
+      name: name,
+      password: password,
+      id: req.body.id,
+      email: req.body.email,
+    };
+    var newUser = new UserType(user);
+    newUser.save(function (err, user) {
+      if (err) console.error(err);
+      else {
+        console.log("登录成功");
+        if (req.autoLogin = 'true') {
+          req.session.user = { 'userName': req.body.name };
+          req.session.autoLogin = true;
+        }
+        res.redirect('/user');
+      }
+    });
 
   });
 module.exports = router;
