@@ -7,8 +7,6 @@ var bodyParser = require('body-parser');//parse post body
 
 var methodOverride = require('method-override');
 var session = require('express-session');
-var mongoose = require('mongoose');
-var MongoStore = require('connect-mongo')(session);
 var flash = require('connect-flash');
 var settings = require('./setting');
 var index = require('./routes/index');
