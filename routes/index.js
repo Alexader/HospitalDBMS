@@ -25,6 +25,18 @@ router.route('/register')
       console.log("password not the same");
       res.redirect('/register');
     }
+    var option = req.body.gridRadios;
+    var UserType;
+    switch(option) {
+      case "patient":
+        UserType = patient;
+        break;
+      case "doctor":
+        UserType = "doctor";
+        break;
+      case "admin":
+        UserType = "admin"
+    }
     var user = {
       name: name,
       password: password,
