@@ -1,33 +1,37 @@
 extends layout
 
 block content
-  form.login
+  form.login(method="post", action="/login")
     h3.title
       | 医务管理系统登录
     div.form-group.row
       label.col-form-label.col-sm-2(for='inputEmail3') Contact
       div.col-sm-10
-        input.form-control#inputEmail3(type="email", placeholder="Email")
+        input.form-control#inputEmail3(type="email", placeholder="Email", name="email")
+    div.form-group.row
+      label.col-form-label.col-sm-2(for='inputPassword3') ID
+      div.col-sm-10
+        input.form-control#inputPassword3(type="id", placeholder="ID", name="id")
     div.form-group.row
       label.col-form-label.col-sm-2(for='inputPassword3') Password
       div.col-sm-10
-        input.form-control#inputPassword3(type="password", placeholder="Password")
+        input.form-control#inputPassword3(type="password", placeholder="Password", name="password")
     fieldset.form-group
       div.row
         div.col-sm-4
           div.form-check
             label.form-check-label
-              input.form-check-input#gridRadios1(type='radio', name='gridRadios', value='oprion1' checked)
+              input.form-check-input#gridRadios1(type='radio', name='gridRadios', value='patient' checked)
               | 患者
         div.col-sm-4
           div.form-check
             label.form-check-label
-              input.form-check-input#gridRadios2(type='radio', name='gridRadios', value='oprion2' checked)
+              input.form-check-input#gridRadios2(type='radio', name='gridRadios', value='doctor' checked)
               | 医生
         div.col-sm-4
           div.form-check
             label.form-check-label
-              input.form-check-input#gridRadios3(type='radio', name='gridRadios', value='oprion2' checked)
+              input.form-check-input#gridRadios3(type='radio', name='gridRadios', value='admin' checked)
               | 管理员
     div.form-group.row
       div.form-check

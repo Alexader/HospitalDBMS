@@ -10,6 +10,48 @@ router.get('/', function(req, res, next) {
   return res.redirect('/register');
 });
 
+router.get('/user', function (req, res, next) {
+  res.render('home', {
+    user: 'tyx',
+    postion: 'home',
+    subposition: 'user'
+    //here to go
+  });
+});
+
+router.post('/search', function (req, res, next) {
+  res.render('searchPage', { title: 'Express' });
+})
+
+router.route('/login')
+  .get(function (req, res, next) {
+    res.render('login', { title: 'Express' })
+  })
+
+  .post(function (req, res, next) {
+    var option = req.body.gridRadios;
+    var UserType;
+    switch (option) {
+      case "patient":
+        UserType = "patient";
+        break;
+      case "doctor":
+        UserType = "doctor";
+        break;
+      case "admin":
+        UserType = "admin";
+    }
+    var user = {
+      ID: req.body.id,
+      email: req.body.email,
+    }
+    var query = "SELECT * FROM "+UserType+" WHERE id=?";
+    connection.query(query, [user.ID], function(err, result) {
+      if(err) return console.log("err occured");
+      console.log(result);
+    })
+  })
+
 router.route('/register')
   .get(function(req, res, next) {
     res.render('register', {
@@ -27,9 +69,10 @@ router.route('/register')
     }
     var option = req.body.gridRadios;
     var UserType;
+    //injection proof
     switch(option) {
       case "patient":
-        UserType = patient;
+        UserType = "patient";
         break;
       case "doctor":
         UserType = "doctor";
@@ -44,11 +87,13 @@ router.route('/register')
       id: req.body.id,
       email: req.body.email,
     }
-    connection.query("SELECT * FROM MYDB", function(err, result) {
+    var queryString = 'INSERT INTO ' + UserType+' (ID, Name, Contact) VALUES("'+user.id+'","'+user.name+'","'+user.email+'");'
+    connection.query(queryString, function(err, result) {
       if(err) {
         console.error(err);
       }
       console.log(result);
+      res.redirect("/user");
     })
   });
 
