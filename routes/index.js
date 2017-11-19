@@ -45,10 +45,25 @@ router.route('/login')
       ID: req.body.id,
       email: req.body.email,
     }
-    var query = "SELECT * FROM "+UserType+" WHERE id=?";
-    connection.query(query, [user.ID], function(err, result) {
+    //check if user exsit
+    var checkExist = "SELECT * FROM "+UserType+" WHERE id=?";
+    var checkPassword = "SELECT password FROM "+UserType+" WHERE id=?"
+    connection.query(checkExist, [user.ID], function(err, result) {
       if(err) return console.log("err occured");
       console.log(result);
+      if(result) {
+        //check if password is correct
+        connection.query(checkPassword, [user.password], function(err, result) {
+          if(err) return console.log("error: query failed");
+          if(result.password === user.password) {
+            res.redirect('/user');
+            console.log("log in successfully");
+          } else{
+            console.log("password not correct");
+            res.redirect('/login');
+          }
+        });
+      }
     })
   })
 
@@ -87,8 +102,10 @@ router.route('/register')
       id: req.body.id,
       email: req.body.email,
     }
-    var queryString = 'INSERT INTO ' + UserType+' (ID, Name, Contact) VALUES("'+user.id+'","'+user.name+'","'+user.email+'");'
-    connection.query(queryString, function(err, result) {
+    var queryString = 'INSERT INTO ' + UserType+' (id, Name, Contact, password) VALUES("'+user.id+'","'+user.name+'","'+user.email+'");'
+    connection.query('INSERT INTO ' + UserType + ' (id, Name, Contact, password) VALUES(?,?,?,?)',
+                            [user.id, user.name, user.email, user.password],
+    function(err, result) {
       if(err) {
         console.error(err);
       }

@@ -8,7 +8,8 @@ var connectionPool = mysql.createPool({
   connectionLimit: 10,
   debug: false,
   acquireTimeout: 5000,
-  database: 'mydb'
+  database: 'mydb',
+  multipleStatements: true,
 });
 
 // connect to the MySQL server

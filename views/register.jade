@@ -1,29 +1,69 @@
 include layout
+script(src="/javascripts/changeReg.js")
 
 block content
-  form.register(method="post", action="register")
-    div.form-row
-      div.form-group.col-md-12
-        label.col-form-label.col-sm-4(for='inputEmail1') 邮箱
-        div.col-sm-10
-          input.form-control#inputEmail3(type="email", placeholder="Email", name="email")
-      div.form-group.col-md-12
-        label.col-form-label.col-sm-4(for='inputPassword2') 密码
-        div.col-sm-10
-          input.form-control#inputPassword3(type="password", placeholder="Password", name="password")
-      div.form-group.col-md-12
-        label.col-form-label.col-sm-4(for='inputPassword2') 确认密码
-        div.col-sm-10
-          input.form-control#inputPassword4(type="password", placeholder="Password", name="password-repeat")
-    div.form-row
-      div.form-group.col-md-6
-        label.col-form-label.col-sm-4(for='inputName') 名字
-        div.col-sm-10
-          input.form-control#inputName3(type="name", placeholder="真实姓名必填", name="name")
-      div.form-group.col-md-6
-        label.col-form-label.col-sm-4(for='inputID') 身份证号
-        div.col-sm-10
-          input.form-control#inputID3(type="ID", placeholder="身份证必填", name='id')
+  form.register(method="post", action="/register")
+    div.NormalUser
+      div.form-row
+        div.form-group.col-md-12
+          label.col-form-label.col-sm-4(for='inputEmail1') 邮箱
+          div.col-sm-10
+            input.form-control#inputEmail3(type="email", placeholder="Email", name="email")
+        div.form-group.col-md-12
+          label.col-form-label.col-sm-4(for='inputPassword2') 密码
+          div.col-sm-10
+            input.form-control#inputPassword3(type="password", placeholder="Password", name="password")
+        div.form-group.col-md-12
+          label.col-form-label.col-sm-4(for='inputPassword2') 确认密码
+          div.col-sm-10
+            input.form-control#inputPassword4(type="password", placeholder="Password", name="password-repeat")
+      div.form-row
+        div.form-group.col-md-6
+          label.col-form-label.col-sm-6(for='inputName') 名字
+          div.col-sm-10
+            input.form-control#inputName3(type="name", placeholder="真实姓名必填", name="name")
+        div.form-group.col-md-6
+          label.col-form-label.col-sm-6(for='inputID') 身份证号/编号
+          div.col-sm-10
+            input.form-control#inputID3(type="ID", placeholder="身份证/编号必填", name='id')
+    div.admin
+      div.form-row
+        div.form-group.col-md-12
+          label.col-form-label.col-sm-4(for='inputEmail1') 联系方式
+          div.col-sm-10
+            input.form-control#inputEmail3(type="email", placeholder="Email or phone", name="email")
+        div.form-group.col-md-12
+          label.col-form-label.col-sm-4(for='inputPassword2') 密码
+          div.col-sm-10
+            input.form-control#inputPassword3(type="password", placeholder="Password", name="password")
+        div.form-group.col-md-12
+          label.col-form-label.col-sm-4(for='inputPassword2') 确认密码
+          div.col-sm-10
+            input.form-control#inputPassword4(type="password", placeholder="Password", name="password-repeat")
+      div.form-row
+        div.form-group.col-md-6
+          label.col-form-label.col-sm-4(for='inputName') 医院名字
+          div.col-sm-10
+            input.form-control#inputName3(type="name", placeholder="真实姓名必填", name="name")
+        div.form-group.col-md-6
+          label.col-form-label.col-sm-6(for='inputID') 医院正式编号
+          div.col-sm-10
+            input.form-control#inputID3(type="ID", placeholder="编号必填", name='id')
+        div.dropdown
+          button(class="btn btn-primary dropdown-toggle" type="button" 
+          data-toggle="dropdown" id="dropdownMenu1" aria-haspopup="true" aria-expanded="true") 医院等级
+            span.caret
+          - var list = ["三级甲等","二级甲等", "一级甲等", "其他"];
+          ul.dropdown-menu(aria-labelledby="dropdownMenu1")
+            li
+              a(href='#') 三级甲等
+            li
+              a(href='#') 二级甲等
+            li
+              a(href='#') 一级甲等
+            li
+              a(href='#') 其他
+          
     fieldset.form-group
       div.row
         div.col-sm-4
