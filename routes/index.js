@@ -46,12 +46,12 @@ router.route('/login')
       email: req.body.email,
     }
     //check if user exsit
-    var checkExist = "SELECT * FROM "+UserType+" WHERE id=?";
-    var checkPassword = "SELECT password FROM "+UserType+" WHERE id=?"
+    var checkExist = "SELECT id FROM user WHERE id=?";
+    var checkPassword = "SELECT password FROM user WHERE id=?"
     connection.query(checkExist, [user.ID], function(err, result) {
       if(err) return console.log("err occured");
       console.log(result);
-      if(result) {
+      if(result.length>0) {
         //check if password is correct
         connection.query(checkPassword, [user.password], function(err, result) {
           if(err) return console.log("error: query failed");
@@ -84,34 +84,44 @@ router.route('/register')
     }
     var option = req.body.gridRadios;
     var UserType;
-    //injection proof
-    switch(option) {
-      case "patient":
-        UserType = "patient";
-        break;
-      case "doctor":
-        UserType = "doctor";
-        break;
-      case "admin":
-        UserType = "admin"
-    }
+    //when it is doctor or patient register, the id colume is id card number
+    //case it is admin registering, id attribute is invitation code 
     var user = {
       name: name,
       password: password,
-      password_re: password_re,
       id: req.body.id,
       email: req.body.email,
     }
-    var queryString = 'INSERT INTO ' + UserType+' (id, Name, Contact, password) VALUES("'+user.id+'","'+user.name+'","'+user.email+'");'
-    connection.query('INSERT INTO ' + UserType + ' (id, Name, Contact, password) VALUES(?,?,?,?)',
-                            [user.id, user.name, user.email, user.password],
-    function(err, result) {
-      if(err) {
-        console.error(err);
-      }
-      console.log(result);
-      res.redirect("/user");
-    })
+    //injection proof
+    switch(option) {
+      case "admin":
+        UserType = 'admin';
+        break;
+      case "patient":
+      case "doctor":
+        UserType = 'normal';
+        break;
+    }
+    //check if invitation code exist
+    user.userType = UserType;
+    if(user.userType === 'admin') {
+      connection.query('SELECT * FROM adminKey WHERE invitation = ' + user.id, function(err, result) {
+        if(err) return console.log(err);
+        console.log(result+'we');
+        if(result.length>0) {
+          console.log('有权限');
+          connection.query('INSERT INTO user (id, name, password, priority, email) VALUES(?,?,?,?,?)',
+          [user.id, user.name, user.password, user.userType, user.email], function(err, result) {
+            if(err) return console.log(err);
+            console.log(result + 'ree');
+            res.redirect('/user');
+          });
+        } else {
+          console.log("邀请码不存在，请确认")
+          res.redirect('/register');
+        }
+      })
+    }
   });
 
 module.exports = router;
