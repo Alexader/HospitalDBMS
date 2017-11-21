@@ -20,7 +20,10 @@ router.get('/user', function (req, res, next) {
 });
 
 router.post('/search', function (req, res, next) {
-  res.render('searchPage', { title: 'Express' });
+  var key = req.body.search;
+  if(key.length>0) {
+
+  }
 })
 
 router.route('/login')
@@ -56,6 +59,12 @@ router.route('/login')
         connection.query(checkPassword, [user.password], function(err, result) {
           if(err) return console.log("error: query failed");
           if(result.password === user.password) {
+            if (req.autoLogin = 'true') {
+              req.session.user = result;
+              req.session.autoLogin = true;
+            } else {
+              req.session.autoLogin = false;
+            }
             res.redirect('/user');
             console.log("log in successfully");
           } else{
@@ -110,10 +119,13 @@ router.route('/register')
         console.log(result+'we');
         if(result.length>0) {
           console.log('有权限');
+          //if got right invitation code, add user and into user page
           connection.query('INSERT INTO user (id, name, password, priority, email) VALUES(?,?,?,?,?)',
           [user.id, user.name, user.password, user.userType, user.email], function(err, result) {
             if(err) return console.log(err);
             console.log(result + 'ree');
+            //user name stored in session
+            req.session.user = result;
             res.redirect('/user');
           });
         } else {
@@ -121,6 +133,25 @@ router.route('/register')
           res.redirect('/register');
         }
       })
+    } else {
+      connection.query('SELECT * FROM user WHERE id = ' + user.id, function(err, result) {
+        if(err) return console.log(err);
+        console.log(result+'we');
+        //user already exist
+        if(result.length>0) {
+          console.log('用户已存在');
+          res.redirect('/register')
+        } else {// add new user
+          connection.query('INSERT INTO user (id, name, password, priority, email) VALUES(?,?,?,?,?)',
+          [user.id, user.name, user.password, user.userType, user.email], function(err, result) {
+            if(err) return console.log(err);
+            console.log(result + 'ree');
+            //user name stored in session
+            req.session.user = user;
+            res.redirect('/user');
+          });
+        }
+      });
     }
   });
 

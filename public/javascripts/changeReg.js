@@ -11,4 +11,7 @@ $(document).ready(function() {
                 break;
         }
     })
+    $('.btn[name="searchButton"]').click(function() {
+        if($('input[name="search"]').val().length===0) alert("关键词不能为空");
+    })
 })

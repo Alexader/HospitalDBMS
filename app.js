@@ -41,6 +41,22 @@ app.use(function (req, res, next) {
   next();
 });
 
+//dont't use app.use("/", .....) because it will redirect to user page every iteration
+app.all('/', function(req, res, next) {
+  //request server in a normal way without remember me
+  if(!req.session.user) {
+    next();
+    console.log('yes');
+  }
+  else if(req.session.autoLogin === true){
+      res.render("home", {
+        user: req.session.user.name,
+        position: "home",
+        subposition: "user",
+      });
+  }
+})
+
 //let router to deal with it
 app.use('/', index);
 
