@@ -45,3 +45,6 @@ a {
   margin: 0 auto;
   margin-top: 50px;
 }
+.content {
+  border-left: thick double #ff0000
+}

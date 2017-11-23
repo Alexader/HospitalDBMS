@@ -4,11 +4,17 @@ var crypto = require('crypto');//kernel module of node for encryption
 var session = require('express-session');
 var flash = require('connect-flash');
 var connection = require("../Mysql/db");
+var search = require('./search');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   return res.redirect('/register');
 });
+
+//for dev only
+router.get('/test', function(req, res, next) {
+  res.render('test');
+})
 
 router.get('/user', function (req, res, next) {
   res.render('home', {
@@ -19,13 +25,10 @@ router.get('/user', function (req, res, next) {
   });
 });
 
-router.post('/search', function (req, res, next) {
-  var key = req.body.search;
-  if(key.length>0) {
+//search handler middleware
+router.post('/search', search);
 
-  }
-})
-
+//login handler
 router.route('/login')
   .get(function (req, res, next) {
     res.render('login', { title: 'Express' })
@@ -76,6 +79,8 @@ router.route('/login')
     })
   })
 
+  
+//register handler
 router.route('/register')
   .get(function(req, res, next) {
     res.render('register', {
