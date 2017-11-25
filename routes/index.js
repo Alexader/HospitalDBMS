@@ -5,6 +5,7 @@ var session = require('express-session');
 var flash = require('connect-flash');
 var connection = require("../Mysql/db");
 var search = require('./search');
+// var moreSearch = require('./moreSearch');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -27,6 +28,7 @@ router.get('/user', function (req, res, next) {
 
 //search handler middleware
 router.post('/search', search);
+// router.post('/moreSearch', moreSearch);
 
 //login handler
 router.route('/login')

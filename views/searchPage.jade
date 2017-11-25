@@ -1,49 +1,59 @@
-include layout
-- var hos = hospital
-- var doc = doctor
-- var pat = patient
-
+- var hosps = hospital
+- var docs = doctor
+- var pats = patient
+script(src="/javascripts/tabs.js")
 block content
-  include navbar
   div.col-md-10.offset-md-1.content
     h3 following is the search result
     div(class="ui top attached tabular menu")
       a.item(data-tab="patient") Patient 
       a.item(data-tab="doctor") Doctor
       a.item(data-tab="hospital") Hospital
-    div(class="ui bottom attached tab segment" data-tab="patient")
+    div(class="ui bottom attached tab segment active" data-tab="patient")
       h3 Patient
         if(pat!="没有找到！")
-          ul
-            li 姓名：#{patient.Name}
-            li  生日：#{patient.Birthday}
-            li  性别#{patient.Sex}
-            li  症状： #{patient.Symptom}
-            li  联系方式： #{patient.Contact}
+          - for pat in pats
+            div.ui.stacked.segment
+              ul
+                li 姓名：#{pat.Name}
+                li  生日：#{pat.Birthday}
+                li  性别#{pat.Sex}
+                li  症状： #{pat.Sympton}
+                li  联系方式： #{pat.Contact}
+              div(class='ui divider')
         else
-          li 没有找到对象
+          div.ui.stacked.segment
+            li 没有找到对象
           
     div(class="ui bottom attached tab segment" data-tab="doctor")
       h3 Doctor
-        if doc != "没有找到"
-          ul
-            li 姓名：#{doctor.Name}
-            li  生日：#{doctor.Birthday}
-            li  性别#{doctor.Sex}
-            li  职称： #{doctor.ProffesionalTitle}
-            li  联系方式： #{doctor.Contact}
-            li  从医年限：#{doctor.CareerYear}
+        if docs != "没有找到"
+          - for doc in docs
+            div.ui.stacked.segment
+              ul
+                li 姓名：#{doc.Name}
+                li  生日：#{doc.Birthday}
+                li  性别#{doc.Sex}
+                li  职称： #{doc.ProffesionalTitle}
+                li  联系方式： #{doc.Contact}
+                li  从医年限：#{doc.CareerYear}
+              div(class='ui divider')
         else
-          li 没有找到
+          div.ui.stacked.segment
+            li 没有找到对象
             
     div(class="ui bottom attached tab segment" data-tab="hospital")
       h3 Hospital
-        if hos != "没有找到"
-          ul
-            li 姓名：#{hospital.Name}
-            li  医院等级：#{hospital.Level}
-            li  地址：#{hospital.Address}
-            li  联系方式： #{hospital.Contact}
+        if hosps != "没有找到"
+          - for hos in hosps
+            div.ui.stacked.segment
+              ul
+                li 姓名：#{hos.Name}
+                li  医院等级：#{hos.Level}
+                li  地址：#{hos.Address}
+                li  联系方式： #{hos.Contact}
+              div(class='ui divider')
         else
-          li 没有找到
+          div.ui.stacked.segment
+            li 没有找到对象
       

@@ -33,7 +33,7 @@ a {
 }
 #content {
   width: 100%;
-  min-height: 30px;
+  min-height: 700px;
   margin: 10px 10px;
   box-shadow: 0 0  10px grey;
 }

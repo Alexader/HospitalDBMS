@@ -6,15 +6,15 @@ var flash = require('connect-flash');
 var connection = require("../Mysql/db");
 
 router.post('/search', function (req, res, next) {
-    req.key = req.body.search;
+    req.key = req.body.key;
     if(req.key.length>0) {
       //find related patient
-      connection.query('select * from patient where Name like ?', [req.key], function(err, results, fields) {
+      connection.query('select * from patient where Name like "*?"', [req.key], function(err, results, fields) {
         if(err) return console.log(err);
         //check if it is empty result 
         if(results.length>0){
-          req.patient = results[0];
-          console.log(results[0]);
+          req.patient = results;
+          console.log(results);
         } else {
           req.patient = "没有找到！";
         }
@@ -27,8 +27,8 @@ router.post('/search', function (req, res, next) {
       if(err) return console.log(err);
       //check if it is empty result 
       if(results.length>0) {
-        req.doctor = results[0];
-        console.log(results[0]);
+        req.doctor = results;
+        console.log(results);
       } else {
         req.doctor = "没有找到";
       }
@@ -40,7 +40,7 @@ router.post('/search', function (req, res, next) {
       if(err) return console.log(err);
       //check if it is empty result
       if(results.length>0) {
-        req.hospital = results[0];
+        req.hospital = results;
         console.log(results);
       } else {
         req.hospital = "没有找到";

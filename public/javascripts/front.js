@@ -11,7 +11,35 @@ $(document).ready(function() {
                 break;
         }
     })
-    $('.btn[name="searchButton"]').click(function() {
+    //forbid sending empty search key
+    $('form[id="search"]').submit(function(e) {
+        //stop submit automatically
+        e.preventDefault();
         if($('input[name="search"]').val().length===0) alert("关键词不能为空");
+        else {
+            var key = $('input[name="search"]').val();
+            
+            console.log('search clicked');
+            
+            var data = {};
+            data.key = key;
+            $.ajax({
+                type: 'post',
+                data: JSON.stringify(data),
+                contentType: 'application/json',
+                url: "http://localhost:3000/search",
+                success: function(data) {
+                    console.log("success");
+                    $('#content').html(data);
+                },
+                error: function(err) {
+                    alert("发送失败");
+                }
+            })
+        }
+    })
+    //if you want to do more kind of search
+    $('.btn[name="moreSearch"]').click(function(e) {
+        
     })
 })
