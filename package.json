@@ -16,6 +16,8 @@
     "method-override": "^2.3.10",
     "morgan": "~1.9.0",
     "mysql": "^2.15.0",
+    "popper.js": "^1.12.9",
+    "semantic-ui": "^2.2.13",
     "serve-favicon": "~2.4.5"
   }
 }

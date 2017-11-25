@@ -19,7 +19,10 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top
     form.form-inline.my-2.my-lg-0(id="search")
       input.form-control.mr-sm-2(name="search", placeholder="按名字搜索", aria-label="Search", size = "30")
       button.btn.btn-outline-success.my-2.my-sm-0(name='searchButton') 搜索
-    button.btn.btn-outline-success.my-2.my-sm-0(name='moreSearch') 更多方式
+    select.custom-select(id='searchOption')
+        option.selected(value='name') 名字
+        option(value='age') 年龄
+        option(value='id') 编号
     | 欢迎
     form.form-inlie(action="#")
       a.user(href='#') #{user}

@@ -11,13 +11,13 @@ block content
       a.item(data-tab="hospital") Hospital
     div(class="ui bottom attached tab segment active" data-tab="patient")
       h3 Patient
-        if(pat!="没有找到！")
+        if pats!="没有找到"
           - for pat in pats
             div.ui.stacked.segment
               ul
                 li 姓名：#{pat.Name}
                 li  生日：#{pat.Birthday}
-                li  性别#{pat.Sex}
+                li  性别：#{pat.Sex}
                 li  症状： #{pat.Sympton}
                 li  联系方式： #{pat.Contact}
               div(class='ui divider')
@@ -33,7 +33,7 @@ block content
               ul
                 li 姓名：#{doc.Name}
                 li  生日：#{doc.Birthday}
-                li  性别#{doc.Sex}
+                li  性别：#{doc.Sex}
                 li  职称： #{doc.ProffesionalTitle}
                 li  联系方式： #{doc.Contact}
                 li  从医年限：#{doc.CareerYear}

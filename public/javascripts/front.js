@@ -11,18 +11,21 @@ $(document).ready(function() {
                 break;
         }
     })
-    //forbid sending empty search key
+    //handle data before send to server
     $('form[id="search"]').submit(function(e) {
         //stop submit automatically
         e.preventDefault();
+        //forbid post empty key
         if($('input[name="search"]').val().length===0) alert("关键词不能为空");
         else {
             var key = $('input[name="search"]').val();
-            
+            //choose how to search in the database
+            var searchOption = $('#searchOption').val();
             console.log('search clicked');
             
             var data = {};
             data.key = key;
+            data.searchOption = searchOption;
             $.ajax({
                 type: 'post',
                 data: JSON.stringify(data),
@@ -38,8 +41,9 @@ $(document).ready(function() {
             })
         }
     })
-    //if you want to do more kind of search
-    $('.btn[name="moreSearch"]').click(function(e) {
-        
-    })
+    //change placeholder with distict option
+    $('select[id="searchOption"]').on('change', (function(e) {
+        var value = $('select[id="searchOption"] option:selected').text();
+        $('input[name="search"]').attr('placeholder', "按"+value+"搜索",);
+    }));
 })
