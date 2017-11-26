@@ -90,11 +90,11 @@ router.route('/register')
     });
   })
 
-  .post(function(req, res, next) {
+  .post(function (req, res, next) {
     var name = req.body.name;
     var password = req.body.password;
     var password_re = req.body['password-repeat'];
-    if(password!=password_re) {
+    if (password != password_re) {
       console.log("password not the same");
       res.redirect('/register');
     }
