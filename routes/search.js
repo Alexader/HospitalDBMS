@@ -36,7 +36,7 @@ router.post('/search', function (req, res, next) {
         req.attribute + req.sql;
       connection.query(sql, function(err, results, fields) {
         if(err) return console.log(err);
-        //check if it is empty result 
+        //check if it is empty result
         if(results.length>0){
           req.patient = results;
           console.log(results);

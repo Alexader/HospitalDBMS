@@ -43,7 +43,30 @@ $(document).ready(function() {
     })
     //change placeholder with distict option
     $('select[id="searchOption"]').on('change', (function(e) {
-        var value = $('select[id="searchOption"] option:selected').text();
-        $('input[name="search"]').attr('placeholder', "按"+value+"搜索",);
+      var value = $('select[id="searchOption"] option:selected').text();
+      $('input[name="search"]').attr('placeholder', "按"+value+"搜索",);
     }));
+    //get user info if click on the avatar
+    $('#userInfo').click(function(e) {
+      e.preventDefault();
+      var data = {userInfo: 'userInfo'};
+      $.ajax({
+        type: 'post',
+        data: JSON.stringify(data),
+        contentType: 'application/json',
+        url: 'http://localhost:3000/user',
+        success: function(data) {
+          console.log("user info received");
+          $('#content').html(data);
+        },
+        error: function(err) {
+          alert(err);
+          console.error(err);
+          $('#content').html(err);
+        },
+        complete: function() {
+            console.log('completed');
+        },
+      });
+    });
 })

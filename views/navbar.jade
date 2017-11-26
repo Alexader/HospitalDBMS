@@ -24,8 +24,7 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top
         option(value='age') 年龄
         option(value='id') 编号
     | 欢迎
-    form.form-inlie(action="#")
-      a.user(href='#') #{user}
+    button(href='#', id='userInfo') #{user.name}
 nav(aria-label="breadcrumb" role="navigation")
   ol.breadcrumb.notify
     li.breadcrumb-item.active(aria-current="page") #{ position }
