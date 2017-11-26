@@ -24,7 +24,9 @@ router.post('/search', function (req, res, next) {
     }
     if(req.key.length>0) {
       //find related patient
-      connection.query('select * from patient where '+ attribute+ ' = '+ connection.escape(req.key), function(err, results, fields) {
+      var sql = 'select Name,Sex,date_format(Birthday, "%Y-%m-%d") AS birth,Contact,Sympton from patient where '+ 
+        attribute + ' = '+ connection.escape(req.key);
+      connection.query(sql, function(err, results, fields) {
         if(err) return console.log(err);
         //check if it is empty result 
         if(results.length>0){
@@ -38,7 +40,9 @@ router.post('/search', function (req, res, next) {
     }
   }, function(req, res, next) {
     //find related doctor
-    connection.query('select * from doctor where '+ attribute+ ' = '+ connection.escape(req.key), function(err, results, fields) {
+    var sql = 'select Name,Sex,date_format(Birthday, "%Y-%m-%d") AS birth,Contact,ProffesionalTitle,CareerYear from doctor where '+ 
+      attribute + ' = '+ connection.escape(req.key);
+    connection.query(sql, function(err, results, fields) {
       if(err) return console.log(err);
       //check if it is empty result 
       if(results.length>0) {
