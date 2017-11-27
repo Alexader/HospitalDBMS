@@ -45,6 +45,11 @@ a {
   margin: 0 auto;
   margin-top: 50px;
 }
+p[name="warning"] {
+  color: red;
+  background-color: yellowgreen;
+}
+/* home page style */
 .content {
   border-left: thick double #ff0000
 }

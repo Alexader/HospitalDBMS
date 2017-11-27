@@ -4,9 +4,11 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');//parse post body
-
 var methodOverride = require('method-override');
 var session = require('express-session');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var BetterMemoryStore = require('session-memory-store')(session);
 var flash = require('connect-flash');
 var settings = require('./setting');
 var index = require('./routes/index');
@@ -26,12 +28,16 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride());
 app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
 
 /*for connecting database to store session
 //and create a connection for session*/
+var store = new BetterMemoryStore({ expires: 60 * 60 * 1000, debug: true });
 app.use(session({
   secret: settings.cookieSecret,
   name: settings.db,//cookie name
+  store: store,
   cookie: {maxAge: 1000 * 60 * 60 * 24 * 30},//30 days
   resave: true,
   saveUninitialized: true,
@@ -41,22 +47,6 @@ app.use(function (req, res, next) {
   res.locals.message = req.flash('message');
   next();
 });
-
-//dont't use app.use("/", .....) because it will redirect to user page every iteration
-app.all('/', function(req, res, next) {
-  //request server in a normal way without remember me
-  if(!req.session.user) {
-    next();
-    console.log('yes');
-  }
-  else if(req.session.autoLogin === true){
-      res.render("home", {
-        user: req.session.user.name,
-        position: "home",
-        subposition: "user",
-      });
-  }
-})
 
 //let router to deal with it
 app.use('/', index);

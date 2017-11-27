@@ -3,6 +3,9 @@ script(src="/javascripts/front.js")
 
 block content
   form.register(method="post", action="/register")
+    - if(message){
+    p.col-sm-8(name='warning') #{message}
+    - }
     div.User
       div.form-row
         div.form-group.col-md-12
@@ -31,17 +34,17 @@ block content
         div.col-sm-4
           div.form-check
             label.form-check-label
-              input.form-check-input#gridRadios1(type='radio', name='gridRadios', value='patient' checked)
+              input.form-check-input#gridRadios1(type='radio', name='type', value='patient' checked)
               | 患者
         div.col-sm-4
           div.form-check
             label.form-check-label
-              input.form-check-input#gridRadios2(type='radio', name='gridRadios', value='doctor' checked)
+              input.form-check-input#gridRadios2(type='radio', name='type', value='doctor' checked)
               | 医生
         div.col-sm-4
           div.form-check
             label.form-check-label
-              input.form-check-input#gridRadios3(type='radio', name='gridRadios', value='admin' checked)
+              input.form-check-input#gridRadios3(type='radio', name='type', value='admin' checked)
               | 管理员
     div.form-group.row
       div.col-sm-4

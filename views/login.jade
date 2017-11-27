@@ -1,7 +1,11 @@
 extends layout
 
 block content
+  
   form.login(method="post", action="/login")
+    - if(message){
+    p(name="warning") #{message}
+    - }
     h3.title
       | 医务管理系统登录
     div.form-group.row
@@ -21,17 +25,17 @@ block content
         div.col-sm-4
           div.form-check
             label.form-check-label
-              input.form-check-input#gridRadios1(type='radio', name='gridRadios', value='patient' checked)
+              input.form-check-input#gridRadios1(type='radio', name='type', value='patient' checked)
               | 患者
         div.col-sm-4
           div.form-check
             label.form-check-label
-              input.form-check-input#gridRadios2(type='radio', name='gridRadios', value='doctor' checked)
+              input.form-check-input#gridRadios2(type='radio', name='type', value='doctor' checked)
               | 医生
         div.col-sm-4
           div.form-check
             label.form-check-label
-              input.form-check-input#gridRadios3(type='radio', name='gridRadios', value='admin' checked)
+              input.form-check-input#gridRadios3(type='radio', name='type', value='admin' checked)
               | 管理员
     div.form-group.row
       div.form-check

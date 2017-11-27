@@ -4,5 +4,7 @@ block content
   h1= title
   include navbar
   div#content
-     p 当前还没有通知
+    - if(message) {
+     p #{message}
+    - }
 
