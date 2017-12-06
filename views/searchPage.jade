@@ -1,6 +1,7 @@
 - var hosps = hospital
 - var docs = doctor
 - var pats = patient
+script(src="/javascripts/tabs.js")
 
 block content
   div.col-md-10.offset-md-1.content
@@ -38,6 +39,9 @@ block content
               div(class='ui divider')
               button.col-sm-1(name="delete") 删除
               input.btn.btn-link(value='>>更多', name='more')
+              div.more(display='none')
+                
+
         else
           div.ui.stacked.segment
             li 没有找到对象

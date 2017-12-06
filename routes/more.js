@@ -13,37 +13,27 @@ router.post('/more', function(req, res, next) {
         case 'doctor':
             break;
     }
-    var sql = "select DoctorNum, MedCodeNum, SurgCodeNum, ExamCodeNum from mydb.treatment where PatientNum=?";
-    var sqls =[];
-    sqls[0] = "SELECT Name FROM doctor WHERE ID=?";
-    sqls[1] = "SELECT * FROM medication WHERE ID=?";
-    sqls[2] = "SELECT * FROM surgery WHERE ID=?";
-    sqls[3] = "SELECT * FROM examination WHERE ID=?";
+    var sql = "select DoctorNum, MedCodeNum, SurgCodeNum, ExamCodeNum from treatment where PatientNum=?";
     //prepare sql
+    var sqlcom = "select doctor.Name,medication.*,surgery.*,examination.* from \
+    doctor,medication,surgery,examination where \
+    doctor.Id=? and medication.ID=? and surgery.ID=? and examination.ID=?";
+    var list;
     sql = mysql.format(sql, [msg.id]);
-    index = 0;
-    var list = [];
     connection.query(sql, function(err, results) {
         if(err) return console.log('error when querying treatment'+err);
         if(results.length<=0) return;
-        // you have to do it async;
-        var refers = results[0];
-        let queryWork = new Promise((resolve,reject)=>{
-            //do all query work asyn
-            for(var id in refers) {
-                connection.query(sqls[index], [refers[id]], function(err, results) {
-                    if(err) return console.log(err);
-                    else if(results.length>0) {
-                        if(typeof(results[0] != undefined))
-                            list[index] = results[0];
-                    } else return;
-                });
-                index++;
-            }
-        });
-        queryWork.then(()=>{
-            console.log(list);
-            res.json(list);
+        var row = results[0];
+        sqlcom = mysql.format(sqlcom, [row['DoctorNum'],row['MedCodeNum'],row['SurgCodeNum'],row['ExamCodeNum']]);
+        connection.query(sqlcom, function(err, results) {
+            if(err) return console.log(err);
+            else if(results.length>0) {
+                if(typeof(results[0] != undefined))
+                    list = results[0];
+                    console.log(list);
+                    res.json(list);
+                    res.end();
+            } else return;
         });
     });
     

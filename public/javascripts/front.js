@@ -140,7 +140,9 @@ $('body').on('click', 'input[name="more"]', function(e) {
             id: but.parent().find('form').children('div').children('input[name="id"]').val(),
         },
         success: function(data) {
-            alert(data);
+            alert(JSON.stringify(data));
+            but.prev('div.more').html(JSON.stringify(data));
+            but.remove();
         },
         error: function() {
             console.log("error to query database");
