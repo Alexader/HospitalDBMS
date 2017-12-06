@@ -13,12 +13,12 @@ var connectionPool = mysql.createPool({
 });
 
 // connect to the MySQL server
-connectionPool.getConnection(function(err, connection) {
-  connection.query("CREATE DATABASE IF NOT EXISTS mydb", function(err) {
-    if(err) return console.log("error: "+ err);
-    console.log("connect success");
-    connection.release();
-  })
-})
+// connectionPool.getConnection(function(err, connection) {
+//   connection.query("CREATE DATABASE IF NOT EXISTS mydb", function(err) {
+//     if(err) return console.log("error: "+ err);
+//     console.log("connect success");
+//     connection.release();
+//   })
+// })
 
 module.exports = connectionPool;

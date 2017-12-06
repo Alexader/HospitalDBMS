@@ -71,10 +71,12 @@ $(document).ready(function () {
     });
 
 })
+//start revising data
 $('body').on('click', 'button[name="revise"]', function(e) {
     e.preventDefault();
     $(this).parent().find('input[class="dataRevisable"]').prop("disabled", false);
 })
+//post revised data to database
 $('body').on('submit', 'form.userData', function(e) {
     e.preventDefault();
     var  data = $(this).serializeArray();
@@ -100,3 +102,28 @@ $('body').on('submit', 'form.userData', function(e) {
         }
     })
 });
+//post delete message to database
+$('body').on('click', 'button[name="delete"]', function(e) {
+    e.preventDefault();
+    var comfirmation = confirm("once you delete, this can't be reversed! Are you sure to delete?");
+    var but = $(this);
+    if(comfirmation === true) {
+        $.ajax({
+            type: 'post',
+            url: 'http://localhost:3000/delete',
+            data: {
+                userType: but.closest('.tab').attr('data-tab'),
+                id: but.parent().find('form').children('div').children('input[name="id"]').val(),
+            },
+            success: function(data) {
+                //delete the function
+                alert(data.info);
+                //remove one record and it is deleted from database
+                but.closest('.stacked').remove();
+            },
+            error: function() {
+                alert("there is an error")
+            }
+        })
+    }
+})

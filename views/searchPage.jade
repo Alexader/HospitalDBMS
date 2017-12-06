@@ -17,7 +17,6 @@ block content
               form.userData(method="post", action='/insert')
                 button.col-sm-1(name="revise") 修改
                 button.col-sm-1(name="save",type="submit") 保存
-                button.col-sm-1(name="delete",type="submit") 删除
                 div.col-md-12
                   sapn.col-md-3 身份证号： 
                   input(class="dataRevisable" value='#{pat.id}' name="id" disabled)
@@ -37,6 +36,7 @@ block content
                   sapn.col-md-3 联系方式： 
                   input(class="dataRevisable" value='#{pat.Contact}' name="contact" disabled)
               div(class='ui divider')
+              button.col-sm-1(name="delete") 删除   
         else
           div.ui.stacked.segment
             li 没有找到对象
@@ -49,7 +49,6 @@ block content
               form.userData(method="post", action='/insert')
                 button.col-sm-1(name="revise") 修改
                 button.col-sm-1(name="save",type="submit") 保存
-                button.col-sm-1(name="delete",type="submit") 删除
                 div.col-md-12
                   sapn.col-md-3 医生执业号： 
                   input(class="dataRevisable" value='#{doc.Id}' name="id" disabled)
@@ -69,6 +68,7 @@ block content
                   sapn.col-md-3 从医年限：
                   input(class="dataRevisable" value='#{doc.CareerYear}' name="career" disabled)
               div(class='ui divider')
+              button.col-sm-1(name="delete") 删除
         else
           div.ui.stacked.segment
             li 没有找到对象
@@ -81,7 +81,6 @@ block content
               form.userData(method="post", action='/insert')
                 button.col-sm-1(name="revise") 修改
                 button.col-sm-1(name="save",type="submit") 保存
-                button.col-sm-1(name="delete",type="submit") 删除
                 div.col-md-12
                   sapn.col-md-3 医院编号： 
                   input(class="dataRevisable" value='#{hos.id}' name="id" disabled)
@@ -98,6 +97,7 @@ block content
                   sapn.col-md-3 地址：
                   input(class="dataRevisable" value='#{hos.Address}' name="address" disabled)
               div(class='ui divider')
+              button.col-sm-1(name="delete") 删除
         else
           div.ui.stacked.segment
             li 没有找到对象

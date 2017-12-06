@@ -7,6 +7,7 @@ var connection = require("../Mysql/db");
 var search = require('./search');
 var regAndlog = require('./regAndlog');
 var insertData = require('./insesrtData');
+var deleteData = require('./deleteData');
 
 router.route('/login')
 .get(regAndlog)
@@ -54,6 +55,7 @@ router.post('/user', function(req, res, next) {
 router.post('/search', search);
 //insert user data
 router.post('/insert', insertData);
+router.post('/delete', deleteData);
 
 
 module.exports = router;
