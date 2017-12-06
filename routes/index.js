@@ -6,11 +6,15 @@ var flash = require('connect-flash');
 var connection = require("../Mysql/db");
 var search = require('./search');
 var regAndlog = require('./regAndlog');
-
+var insertData = require('./insesrtData');
 
 router.route('/login')
 .get(regAndlog)
 .post(regAndlog);
+router.route('/register')
+.get(regAndlog)
+.post(regAndlog);
+router.get('/logout', regAndlog)
 
 
 //to protect website from unauthenticated user
@@ -23,7 +27,7 @@ function isAuthenticated(req, res, next) {
  * you have to put this route behind `login` route
  * otherwise there will be a redirect loop
  */
-router.all('*', function(req, res, next) {
+router.get('*', function(req, res, next) {
 if(req.params === '/'||req.params === '/login') {
   next();
 } else {
@@ -35,31 +39,21 @@ router.get('/test', function(req, res, next) {
   res.render('test');
 })
 
-router.route('/register')
-.get(regAndlog)
-.post(regAndlog);
-router.get('/logout', regAndlog)
 
 router.post('/user', function(req, res, next) {
   if(req.body.userInfo === 'userInfo') {
     console.log("收到");
+    console.log(req.session.user);
   }
-  if(req.user) {
-    res.render('userInfo', {
-      user: req.user.name,
-    })
-    
-  } else{
-    res.render('userInfo', {
-      user: {
-        name: 'tyx',
-      }
-    })
-  }
+  res.render('userInfo', {
+    user: req.session.user
+  })
 });
 
 //search handler middleware
 router.post('/search', search);
+//insert user data
+router.post('/insert', insertData);
 
 
 module.exports = router;

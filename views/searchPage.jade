@@ -14,12 +14,28 @@ block content
         if pats!="没有找到"
           - for pat in pats
             div.ui.stacked.segment
-              ul
-                li 姓名：#{pat.Name}
-                li  生日：#{pat.birth}
-                li  性别：#{pat.Sex}
-                li  症状： #{pat.Sympton}
-                li  联系方式： #{pat.Contact}
+              form.userData(method="post", action='/insert')
+                button.col-sm-1(name="revise") 修改
+                button.col-sm-1(name="save",type="submit") 保存
+                button.col-sm-1(name="delete",type="submit") 删除
+                div.col-md-12
+                  sapn.col-md-3 身份证号： 
+                  input(class="dataRevisable" value='#{pat.id}' name="id" disabled)
+                div.col-md-12
+                  sapn.col-md-3 姓名： 
+                  input(class="dataRevisable" value='#{pat.Name}' name="name" disabled)
+                div.col-md-12
+                  sapn.col-md-3 生日： 
+                  input(class="dataRevisable" value='#{pat.birth}' name="birth" disabled)
+                div.col-md-12
+                  sapn.col-md-3 性别：
+                  input(class="dataRevisable" value='#{pat.Sex}' name="sex" disabled)
+                div.col-md-12
+                  sapn.col-md-3 症状： 
+                  input(class="dataRevisable" value='#{pat.Sympton}' name="sympton" disabled)
+                div.col-md-12
+                  sapn.col-md-3 联系方式： 
+                  input(class="dataRevisable" value='#{pat.Contact}' name="contact" disabled)
               div(class='ui divider')
         else
           div.ui.stacked.segment
@@ -30,13 +46,28 @@ block content
         if docs != "没有找到"
           - for doc in docs
             div.ui.stacked.segment
-              ul
-                li 姓名：#{doc.Name}
-                li  生日：#{doc.birth}
-                li  性别：#{doc.Sex}
-                li  职称： #{doc.ProffesionalTitle}
-                li  联系方式： #{doc.Contact}
-                li  从医年限：#{doc.CareerYear}
+              form.userData(method="post", action='/insert')
+                button.col-sm-1(name="revise") 修改
+                button.col-sm-1(name="save",type="submit") 保存
+                button.col-sm-1(name="delete",type="submit") 删除
+                div.col-md-12
+                  sapn.col-md-3 医生执业号： 
+                  input(class="dataRevisable" value='#{doc.Id}' name="id" disabled)
+                div.col-md-12
+                  sapn.col-md-3 姓名： 
+                  input(class="dataRevisable" value='#{doc.Name}' name="name" disabled)
+                div.col-md-12
+                  sapn.col-md-3 性别：
+                  input(class="dataRevisable" value='#{doc.Sex}' name="sex" disabled)
+                div.col-md-12
+                  sapn.col-md-3 职称：
+                  input(class="dataRevisable" value='#{doc.ProffesionalTitle}' name="title" disabled)
+                div.col-md-12
+                  sapn.col-md-3 联系方式：
+                  input(class="dataRevisable" value='#{doc.Contact}' name="contact" disabled)
+                div.col-md-12
+                  sapn.col-md-3 从医年限：
+                  input(class="dataRevisable" value='#{doc.CareerYear}' name="career" disabled)
               div(class='ui divider')
         else
           div.ui.stacked.segment
@@ -47,11 +78,25 @@ block content
         if hosps != "没有找到"
           - for hos in hosps
             div.ui.stacked.segment
-              ul
-                li 名称：#{hos.Name}
-                li  医院等级：#{hos.Level}
-                li  地址：#{hos.Address}
-                li  联系方式： #{hos.Contact}
+              form.userData(method="post", action='/insert')
+                button.col-sm-1(name="revise") 修改
+                button.col-sm-1(name="save",type="submit") 保存
+                button.col-sm-1(name="delete",type="submit") 删除
+                div.col-md-12
+                  sapn.col-md-3 医院编号： 
+                  input(class="dataRevisable" value='#{hos.id}' name="id" disabled)
+                div.col-md-12
+                  sapn.col-md-3 医院名：
+                  input(class="dataRevisable" value='#{hos.Name}' name="name" disabled)
+                div.col-md-12
+                  sapn.col-md-3 医院等级：
+                  input(class="dataRevisable" value='#{hos.Level}' name="level" disabled)
+                div.col-md-12
+                  sapn.col-md-3 联系方式：
+                  input(class="dataRevisable" value='#{hos.Contact}' name="contact" disabled)
+                div.col-md-12
+                  sapn.col-md-3 地址：
+                  input(class="dataRevisable" value='#{hos.Address}' name="address" disabled)
               div(class='ui divider')
         else
           div.ui.stacked.segment

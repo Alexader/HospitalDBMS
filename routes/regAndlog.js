@@ -124,6 +124,7 @@ router.post("/login", passport.authenticate('local-login', {
   failureRedirect: '/login',
   failureFlash: true
 }), function (req, res, info) {
+  req.session.user = req.user;
   res.render('home', {
     'message': req.flash('message'),
     'user': req.user,
@@ -134,6 +135,7 @@ router.post('/register', passport.authenticate('local-register', {
   failureRedirect: '/register',
   failureFlash: true,
 }), function(req, res, info) {
+  req.session.user = req.user;
   res.render('home', {
     'message': req.flash('message'),
     'user': req.user,

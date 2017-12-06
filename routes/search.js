@@ -32,7 +32,7 @@ router.post('/search', function (req, res, next) {
     }
     if(req.key.length>0) {
       //find related patient
-      var sql = 'select Name,Sex,date_format(Birthday, "%Y-%m-%d") AS birth,Contact,Sympton from patient where '+ 
+      var sql = 'select id, Name,Sex,date_format(Birthday, "%Y-%m-%d") AS birth,Contact,Sympton from patient where '+ 
         req.attribute + req.sql;
       connection.query(sql, function(err, results, fields) {
         if(err) return console.log(err);
@@ -48,7 +48,7 @@ router.post('/search', function (req, res, next) {
     }
   }, function(req, res, next) {
     //find related doctor
-    var sql = 'select Name,Sex,date_format(Birthday, "%Y-%m-%d") AS birth,Contact,ProffesionalTitle,CareerYear from doctor where '+ 
+    var sql = 'select Id, Name,Sex,date_format(Birthday, "%Y-%m-%d") AS birth,Contact,ProffesionalTitle,CareerYear from doctor where '+ 
       req.attribute + req.sql;
     connection.query(sql, function(err, results, fields) {
       if(err) return console.log(err);
