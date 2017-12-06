@@ -127,3 +127,23 @@ $('body').on('click', 'button[name="delete"]', function(e) {
         })
     }
 })
+//show more info
+$('body').on('click', 'input[name="more"]', function(e) {
+    e.preventDefault();
+    var but = $(this);
+    $.ajax({
+        type: 'post', 
+        url: 'http://localhost:3000/more',
+        datatype: 'json',
+        data: {
+            userType: but.closest('.tab').attr('data-tab'),
+            id: but.parent().find('form').children('div').children('input[name="id"]').val(),
+        },
+        success: function(data) {
+            alert(data);
+        },
+        error: function() {
+            console.log("error to query database");
+        }
+    })
+})

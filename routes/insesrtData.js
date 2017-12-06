@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var crypto = require('crypto');//kernel module of node for encryption
 var session = require('express-session');
 var flash = require('connect-flash');
 var mysql = require('mysql');
@@ -23,19 +22,18 @@ router.post('/insert', function(req, res, next) {
       sql = mysql.format(sql, [data.userType, data.name, data.level, data.contact, data.address]);
       break;
   }
-  console.log(data);
-  console.log(sql);
+  // console.log(data);
+  // console.log(sql);
   connection.query(sql, function(err, results) {
     if(err) {
       console.log(err);
-      console.log(results);
     } else {
-      console.log(results);
+      // console.log(results);
       //yu have to stringfy your js object before sending it
       var json = JSON.stringify(results);
-      console.log(json);
+      // console.log(json);
       console.log("update success");
-      res.setHeader('Content-Type', 'application/json');
+      // res.setHeader('Content-Type', 'application/json');
       res.json(json);
     }
     })

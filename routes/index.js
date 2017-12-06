@@ -8,6 +8,7 @@ var search = require('./search');
 var regAndlog = require('./regAndlog');
 var insertData = require('./insesrtData');
 var deleteData = require('./deleteData');
+var more = require('./more');
 
 router.route('/login')
 .get(regAndlog)
@@ -56,6 +57,7 @@ router.post('/search', search);
 //insert user data
 router.post('/insert', insertData);
 router.post('/delete', deleteData);
+router.post('/more', more);
 
 
 module.exports = router;

@@ -19,14 +19,13 @@ router.post('/delete', function(req, res, next) {
   }
   sql = "DELETE FROM ?? WHERE ID=?"
   sql = mysql.format(sql, [data.userType, data.id]);
-  console.log(data);
-  console.log(sql);
+  // console.log(data);
+  // console.log(sql);
   connection.query(sql, function(err, results) {
     if(err) console.log('delete failed');
     console.log("delete "+data.userType+data.id);
     res.json({info: "delete sucess"});
   })
-  
 })
 
 module.exports = router;

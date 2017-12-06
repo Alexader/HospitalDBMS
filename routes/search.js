@@ -39,7 +39,7 @@ router.post('/search', function (req, res, next) {
         //check if it is empty result
         if(results.length>0){
           req.patient = results;
-          console.log(results);
+          // console.log(results);
         } else {
           req.patient = "没有找到";
         }
@@ -55,7 +55,7 @@ router.post('/search', function (req, res, next) {
       //check if it is empty result 
       if(results.length>0) {
         req.doctor = results;
-        console.log(results);
+        // console.log(results);
       } else {
         req.doctor = "没有找到";
       }
@@ -78,7 +78,7 @@ router.post('/search', function (req, res, next) {
         //check if it is empty result
         if(results.length>0) {
           req.hospital = results;
-          console.log(results);
+          // console.log(results);
         } else {
           req.hospital = "没有找到";
         }

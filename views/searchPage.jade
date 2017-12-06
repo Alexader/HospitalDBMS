@@ -1,12 +1,12 @@
 - var hosps = hospital
 - var docs = doctor
 - var pats = patient
-script(src="/javascripts/tabs.js")
+
 block content
   div.col-md-10.offset-md-1.content
     h3 following is the search result
     div(class="ui top attached tabular menu")
-      a.item(data-tab="patient") Patient 
+      a.item(data-tab="patient") Patient
       a.item(data-tab="doctor") Doctor
       a.item(data-tab="hospital") Hospital
     div(class="ui bottom attached tab segment active" data-tab="patient")
@@ -36,7 +36,8 @@ block content
                   sapn.col-md-3 联系方式： 
                   input(class="dataRevisable" value='#{pat.Contact}' name="contact" disabled)
               div(class='ui divider')
-              button.col-sm-1(name="delete") 删除   
+              button.col-sm-1(name="delete") 删除
+              input.btn.btn-link(value='>>更多', name='more')
         else
           div.ui.stacked.segment
             li 没有找到对象
