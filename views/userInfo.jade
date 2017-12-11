@@ -1,3 +1,18 @@
-- var ur = #{user}
-div 这是姓名
-div #{ur.name}
+div.col-md-10.offset-md-1.content
+	div.ui.stacked.segment
+		div 用户信息展示
+		div(class='ui divider')
+		div.col-md-12.input-group
+			sapn.input-group-addon.col-md-1 身份证号： 
+			input(class="dataRevisable" value='#{user.id}' disabled)
+		div.col-md-12.input-group
+			sapn.input-group-addon.col-md-1 名字 ：
+			input(class="dataRevisable" value='#{user.name}' disabled)
+		div.col-md-12.input-group
+			sapn.input-group-addon.col-md-1 身份 ：
+			input(class="dataRevisable" value='#{user.priority}' disabled)
+		div.col-md-12.input-group
+			sapn.input-group-addon.col-md-1 邮箱 ：
+			input(class="dataRevisable" value='#{user.email}' disabled)
+		div.myData
+		div(class='ui divider')

@@ -18,6 +18,10 @@ router.route('/register')
 .post(regAndlog);
 router.get('/logout', regAndlog)
 
+//for dev only
+router.get('/test', function(req, res, next) {
+  res.render('test');
+})
 
 //to protect website from unauthenticated user
 function isAuthenticated(req, res, next) {
@@ -36,11 +40,6 @@ if(req.params === '/'||req.params === '/login') {
   isAuthenticated(req, res, next);
 }
 });
-//for dev only
-router.get('/test', function(req, res, next) {
-  res.render('test');
-})
-
 
 router.post('/user', function(req, res, next) {
   if(req.body.userInfo === 'userInfo') {

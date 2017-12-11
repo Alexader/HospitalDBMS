@@ -10,7 +10,7 @@ $(document).ready(function () {
                 $('label[for="inputID"]').text("身份证/工号");
                 break;
         }
-    })
+    });
     //handle data before send to server
     $('form[id="search"]').submit(function (e) {
         //stop submit automatically
@@ -40,14 +40,14 @@ $(document).ready(function () {
                 }
             })
         }
-    })
+    });
     //change placeholder with distict option
     $('select[id="searchOption"]').on('change', (function (e) {
         var value = $('select[id="searchOption"] option:selected').text();
         $('input[name="search"]').attr('placeholder', "按" + value + "搜索", );
     }));
-    //get user info if click on the avatar
-    $('#userInfo').click(function (e) {
+    //get user info if click on the check
+    $('button#NormalCheck').click(function (e) {
         e.preventDefault();
         var data = { userInfo: 'userInfo' };
         $.ajax({
@@ -56,6 +56,7 @@ $(document).ready(function () {
             contentType: 'application/json',
             url: 'http://localhost:3000/user',
             success: function (data) {
+                console.log(data);
                 console.log("user info received");
                 $('#content').html(data);
             },
@@ -69,13 +70,26 @@ $(document).ready(function () {
             },
         });
     });
-
-})
+    $('NormlCheck').click(function(e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'get',
+            url: 'http://localhost:3000/check',
+            contentType: 'application/json',
+            success: function(data) {
+                $('#content'.html(data));
+            },
+            error: function(err) {
+                console.log('error occured'+err);
+            }
+        })
+    });
+});
 //start revising data
 $('body').on('click', 'button[name="revise"]', function(e) {
     e.preventDefault();
     $(this).parent().find('input[class="dataRevisable"]').prop("disabled", false);
-})
+});
 //post revised data to database
 $('body').on('submit', 'form.userData', function(e) {
     e.preventDefault();
@@ -126,7 +140,7 @@ $('body').on('click', 'button[name="delete"]', function(e) {
             }
         })
     }
-})
+});
 //show more info
 $('body').on('click', 'input[name="more"]', function(e) {
     e.preventDefault();
@@ -156,4 +170,4 @@ $('body').on('click', 'input[name="more"]', function(e) {
                 }
             })
     }
-})
+});

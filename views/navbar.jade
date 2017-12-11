@@ -1,6 +1,7 @@
 - var logo = 'Varoio'
 - var position = "主页"
 - var subposition = "当前通知"
+- var usr = user
 script(src="/javascripts/front.js")
   
 nav.navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top
@@ -16,15 +17,18 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top
         span.oi.oi-account-logout
         a.navlink(href='/logout') 退出
           span.sr-only |(current)
-    form.form-inline.my-2.my-lg-0(id="search")
-      input.form-control.mr-sm-2(name="search", placeholder="按名字搜索", aria-label="Search", size = "30")
-      button.btn.btn-outline-success.my-2.my-sm-0(name='searchButton') 搜索
-    select.custom-select(id='searchOption')
-        option.selected(value='name') 名字
-        option(value='age') 年龄
-        option(value='id') 编号
-    | 欢迎
-    button(href='#', id='userInfo') #{user.name}
+    if usr.priority=="admin"
+      form.form-inline.my-2.my-lg-0(id="search")
+        input.form-control.mr-sm-2(name="search", placeholder="按名字搜索", aria-label="Search", size = "30")
+        button.btn.btn-outline-success.my-2.my-sm-0(name='searchButton') 搜索
+      select.custom-select(id='searchOption')
+          option.selected(value='name') 名字
+          option(value='age') 年龄
+          option(value='id') 编号
+    else
+      button.ui.btn#NormalCheck 查看 
+    span 欢迎
+    button.ui.btn(href='#', id='userInfo') #{usr.name}  
 nav(aria-label="breadcrumb" role="navigation")
   ol.breadcrumb.notify
     li.breadcrumb-item.active(aria-current="page") #{ position }
