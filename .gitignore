@@ -62,3 +62,7 @@ typings/
 
 #semantic theme
 semantic
+
+#local db files
+*.sql
+*.mwb

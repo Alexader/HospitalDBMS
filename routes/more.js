@@ -15,7 +15,10 @@ router.post('/more', function(req, res, next) {
     }
     var sql = "select DoctorNum, MedCodeNum, SurgCodeNum, ExamCodeNum from treatment where PatientNum=?";
     //prepare sql
-    var sqlcom = "select doctor.Name,medication.*,surgery.*,examination.* from \
+    var sqlcom = "select doctor.Name,\
+    medication.Price AS mPrice,medication.Instruction,\
+    surgery.Site,surgery.Price AS sPrice,surgery.Time,\
+    examination.Price AS ePrice,examination.Title from \
     doctor,medication,surgery,examination where \
     doctor.Id=? and medication.ID=? and surgery.ID=? and examination.ID=?";
     var list;

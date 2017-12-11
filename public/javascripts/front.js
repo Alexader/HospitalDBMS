@@ -131,21 +131,29 @@ $('body').on('click', 'button[name="delete"]', function(e) {
 $('body').on('click', 'input[name="more"]', function(e) {
     e.preventDefault();
     var but = $(this);
-    $.ajax({
-        type: 'post', 
-        url: 'http://localhost:3000/more',
-        datatype: 'json',
-        data: {
-            userType: but.closest('.tab').attr('data-tab'),
-            id: but.parent().find('form').children('div').children('input[name="id"]').val(),
-        },
-        success: function(data) {
-            alert(JSON.stringify(data));
-            but.prev('div.more').html(JSON.stringify(data));
-            but.remove();
-        },
-        error: function() {
-            console.log("error to query database");
-        }
-    })
+    if(but.attr("value")===">>收起") {
+        but.attr("value", ">>更多");
+        $('div.myData').empty();
+    } else {
+        $.ajax({
+                type: 'post', 
+                url: 'http://localhost:3000/more',
+                datatype: 'json',
+                data: {
+                    userType: but.closest('.tab').attr('data-tab'),
+                    id: but.parent().find('form').children('div').children('input[name="id"]').val(),
+                },
+                success: function(data) {
+                    alert(JSON.stringify(data));
+                    $(".myData").append("<div>主治医生:"+data.Name+'</div>');
+                    $(".myData").append("<h3>手术治疗:</h3>"+"<p>手术费用："+data.sPrice+"</p>"+"<p>手术地点："+data.Site+"</p>"+"<p>手术时间"+data.Time+"</p>"+'<br>');
+                    $(".myData").append("<h3>药物治疗:</h3>"+"<p>药物费用："+data.mPrice+"</p>"+"<p>药物服用要求："+data.Instruction+"</p>"+'<br>');
+                    $(".myData").append("<h3>检查项目:</h3>"+"<p>项目名称："+data.Title+"</p>"+"<p>项目费用："+data.ePrice+"</p>"+'<br>');
+                    but.attr('value', ">>收起");
+                },
+                error: function() {
+                    console.log("error to query database");
+                }
+            })
+    }
 })
