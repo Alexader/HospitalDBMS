@@ -31,6 +31,11 @@ passport.use('local-login', new LocalStrategy({
     if (!(dbPassword === encPassword)) {
       return done(null, false, req.flash('message', 'wrong password.'));
     }
+    if(results[0].priority==="admin"){
+      req.flash("message", "管理员权限登录")
+    } else {
+      req.flash("message", "你没有管理员的权限，只能查询自己的信息")
+    }
     return done(null, results[0]);
   });
 
@@ -128,10 +133,11 @@ router.post("/login", passport.authenticate('local-login', {
   res.render('home', {
     'message': req.flash('message'),
     'user': req.user,
-  });
+    }); 
 });
 
 router.post('/register', passport.authenticate('local-register', {
+  // successRedirect: '/home',
   failureRedirect: '/register',
   failureFlash: true,
 }), function(req, res, info) {

@@ -53,3 +53,8 @@ p[name="warning"] {
 .content {
   border-left: thick double #ff0000
 }
+.message {
+  margin: auto 0;
+  color: red;
+  background-color: yellowgreen;
+}
