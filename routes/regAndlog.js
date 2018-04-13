@@ -73,7 +73,7 @@ passport.use('local-register', new LocalStrategy({
       //find error and inform user
       if (err) return done(req.flash('message', err));
       //not allowed by admin
-      if (results.length) {
+      if (!results.length) {
         return done(null, false, req.flash('message', 'you are not allowed to register as admin.'));
       } else {
         connection.query('INSERT INTO user (id, name, password, priority, email) VALUES(?,?,?,?,?)',
@@ -82,7 +82,7 @@ passport.use('local-register', new LocalStrategy({
             if (err) return console.log(err);
             console.log(result);
             //invitation confirmed   
-            return done(null, results[0]);
+            return done(null, newUserMysql);
           });
       }
     })

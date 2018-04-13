@@ -4,7 +4,8 @@ var mysql = require('mysql');
 var connectionPool = mysql.createPool({
   host : '127.0.0.1',
   user : 'Alex',
-  password : '36019970327tyx',
+  // replace with your own database password.
+  password : '*********',
   connectionLimit: 10,
   debug: false,
   acquireTimeout: 5000,
